@@ -1,4 +1,5 @@
 import { NegentropyLeaderboardItem } from '../core/index.js';
+import { escapeHtml } from '../utils/html.js';
 
 export interface LeaderboardProps {
   items: NegentropyLeaderboardItem[];
@@ -25,9 +26,9 @@ export function renderLeaderboard(props: LeaderboardProps): string {
       <div class="leaderboard-item">
         <div class="leaderboard-rank ${rankColorClass}">#${item.rank}</div>
         <div class="leaderboard-info">
-          <div class="leaderboard-title">${item.title}</div>
+          <div class="leaderboard-title">${escapeHtml(item.title)}</div>
           <div class="leaderboard-meta">
-            <span class="badge badge-negentropy" style="font-size: 0.65rem; padding: 0.1rem 0.4rem;">${item.categoryLabel}</span>
+            <span class="badge badge-negentropy" style="font-size: 0.65rem; padding: 0.1rem 0.4rem;">${escapeHtml(item.categoryLabel)}</span>
             <span>频次: ${item.count} 次</span>
             <span>均次削减: -${item.averageReduction}</span>
           </div>

@@ -1,4 +1,5 @@
 import { DailyRiverPoint, DIMENSION_LABELS, DIMENSION_KEYS } from '../core/index.js';
+import { escapeHtml } from '../utils/html.js';
 
 export interface RiverProps {
   riverData: DailyRiverPoint[];
@@ -120,7 +121,7 @@ export function renderRiver(props: RiverProps): string {
     const shortDate = pt.date.slice(5);
     return `
       <text x="${x.toFixed(1)}" y="${svgHeight - 8}" fill="var(--text-muted)" font-size="10" font-family="var(--font-mono)" text-anchor="middle">
-        ${shortDate}
+        ${escapeHtml(shortDate)}
       </text>
     `;
   });
@@ -130,11 +131,11 @@ export function renderRiver(props: RiverProps): string {
     const isCooled = m.reduction > 0;
     return `
       <g class="river-node"
-         data-date="${m.date}"
+         data-date="${escapeHtml(m.date)}"
          data-gross="${m.gross}"
          data-net="${m.net}"
          data-reduction="${m.reduction}"
-         data-top="${m.topLabel}"
+         data-top="${escapeHtml(m.topLabel)}"
          style="cursor: pointer;">
         <circle cx="${m.x.toFixed(1)}" cy="${m.y.toFixed(1)}" r="4.5"
                 fill="${isCooled ? 'var(--negentropy-color)' : 'var(--entropy-low)'}"
