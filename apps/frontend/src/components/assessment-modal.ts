@@ -8,6 +8,7 @@ import {
   EntropyCalculationResult,
   AttributionResult,
 } from '../core/index.js';
+import { escapeHtml } from '../utils/html.js';
 
 export interface AssessmentModalProps {
   isOpen: boolean;
@@ -94,7 +95,7 @@ export function renderAssessmentModal(props: AssessmentModalProps): string {
           <!-- Date Picker -->
           <div class="form-group">
             <label class="form-label" for="entry-date">评估日期</label>
-            <input type="date" id="entry-date" class="input-text" value="${draft.date}" />
+            <input type="date" id="entry-date" class="input-text" value="${escapeHtml(draft.date)}" />
           </div>
 
           <!-- 6 Dimension Sliders -->
@@ -126,7 +127,7 @@ export function renderAssessmentModal(props: AssessmentModalProps): string {
               <div>
                 <label class="form-label" style="font-size: 0.8rem;" for="negentropy-title">小事名称</label>
                 <input type="text" id="negentropy-title" class="input-text" placeholder="例如：在阳台安静看云15分钟"
-                       value="${draft.negentropyEvent?.title || ''}" />
+                       value="${escapeHtml(draft.negentropyEvent?.title || '')}" />
               </div>
               <div>
                 <label class="form-label" style="font-size: 0.8rem;" for="negentropy-category">类型分类</label>
@@ -151,7 +152,7 @@ export function renderAssessmentModal(props: AssessmentModalProps): string {
           <!-- Notes -->
           <div class="form-group" style="margin-top: 1.25rem;">
             <label class="form-label" for="entry-notes">觉察笔记 (可选)</label>
-            <textarea id="entry-notes" class="textarea-input" rows="2" placeholder="记录今天发生的诱发事件或内在感悟...">${draft.notes || ''}</textarea>
+            <textarea id="entry-notes" class="textarea-input" rows="2" placeholder="记录今天发生的诱发事件或内在感悟...">${escapeHtml(draft.notes || '')}</textarea>
           </div>
 
           <!-- Submit Buttons -->

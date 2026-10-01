@@ -8,6 +8,7 @@ import { renderLeaderboard } from './components/leaderboard.js';
 import { renderMetricsCards, renderAttributionList } from './components/metrics-cards.js';
 import { renderAssessmentModal } from './components/assessment-modal.js';
 import { renderHistoryModal } from './components/history-modal.js';
+import { escapeHtml } from './utils/html.js';
 import { DimensionKey } from './core/index.js';
 
 function renderApp(state: DashboardState): void {
@@ -61,7 +62,7 @@ function renderApp(state: DashboardState): void {
         ${headerHtml}
         <main class="main-content" style="text-align: center; padding-top: 5rem;">
           ${loading ? '<div style="font-size: 1.25rem; color: var(--entropy-low);">正在加载热力学仪表盘...</div>' : ''}
-          ${error ? `<div style="color: var(--entropy-high); margin-bottom: 1rem;">${error}</div><button id="btn-retry" class="btn btn-primary">重试连接</button>` : ''}
+          ${error ? `<div style="color: var(--entropy-high); margin-bottom: 1rem;">${escapeHtml(error)}</div><button id="btn-retry" class="btn btn-primary">重试连接</button>` : ''}
         </main>
       </div>
     `;
@@ -395,10 +396,10 @@ function attachEventHandlers(): void {
       const top = node.getAttribute('data-top');
 
       tooltip.innerHTML = `
-        <div style="font-weight: 700; color: #fff; margin-bottom: 2px;">${date}</div>
-        <div>净熵: <strong style="color: var(--entropy-low);">${net}</strong> (毛熵 ${gross})</div>
-        <div style="color: var(--negentropy-color);">负熵削减: -${red}</div>
-        <div style="color: var(--text-secondary); font-size: 0.7rem; margin-top: 2px;">首要诱因: ${top}</div>
+        <div style="font-weight: 700; color: #fff; margin-bottom: 2px;">${escapeHtml(date)}</div>
+        <div>净熵: <strong style="color: var(--entropy-low);">${escapeHtml(net)}</strong> (毛熵 ${escapeHtml(gross)})</div>
+        <div style="color: var(--negentropy-color);">负熵削减: -${escapeHtml(red)}</div>
+        <div style="color: var(--text-secondary); font-size: 0.7rem; margin-top: 2px;">首要诱因: ${escapeHtml(top)}</div>
       `;
 
       const rect = (e.currentTarget as Element).getBoundingClientRect();
